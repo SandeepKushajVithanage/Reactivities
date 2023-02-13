@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Domain;
 using MediatR;
@@ -9,7 +5,7 @@ using Persistence;
 
 namespace Application.Activities
 {
-    public class Edit
+  public class Edit
     {
         public class Command : IRequest
         {
@@ -38,5 +34,5 @@ namespace Application.Activities
                 return Unit.Value;
             }
         }
-  }
+    }
 }
