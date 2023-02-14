@@ -6,12 +6,14 @@ type ActivityFormProps = {
   activity: Activity | undefined;
   closeForm: () => void;
   createOrEdit: (activity: Activity) => void;
+  submitting: boolean;
 };
 
 const ActivityForm = ({
   activity: selectedActivity,
   closeForm,
   createOrEdit,
+  submitting,
 }: ActivityFormProps) => {
   const initialState = selectedActivity ?? {
     id: "",
@@ -61,6 +63,7 @@ const ActivityForm = ({
           name="date"
           value={activity.date}
           onChange={handleInputChange}
+          type="date"
           placeholder="Date"
         />
         <Form.Input
@@ -75,7 +78,13 @@ const ActivityForm = ({
           onChange={handleInputChange}
           placeholder="Vanue"
         />
-        <Button floated="right" positive type="submit" content="Submit" />
+        <Button
+          loading={submitting}
+          floated="right"
+          positive
+          type="submit"
+          content="Submit"
+        />
         <Button
           onClick={closeForm}
           floated="right"
