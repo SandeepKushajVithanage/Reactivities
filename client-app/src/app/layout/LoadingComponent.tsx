@@ -3,7 +3,7 @@ import { Dimmer, Loader } from "semantic-ui-react";
 
 type LoadingComponentProps = {
   inverted?: boolean;
-  content: string;
+  content?: string;
 };
 
 const LoadingComponent = ({
