@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 type NavBarProps = {};
 
-const NavBar = () => {
+const NavBar = (props: NavBarProps) => {
   return (
     <Menu inverted fixed="top">
       <Container>

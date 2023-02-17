@@ -9,11 +9,10 @@ import { v4 as uuid } from "uuid";
 
 type ActivityFormProps = {};
 
-const ActivityForm = ({}: ActivityFormProps) => {
+const ActivityForm = (props: ActivityFormProps) => {
   const navigate = useNavigate();
   const { activityStore } = useStore();
   const {
-    selectedActivity,
     createActivity,
     updateActivity,
     loading,
