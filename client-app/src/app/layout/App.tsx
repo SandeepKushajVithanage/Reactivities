@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import { observer } from "mobx-react-lite";
 import { Outlet, useLocation } from "react-router-dom";
 import HomePage from "../../features/home/HomePage";
+import { ToastContainer } from "react-toastify";
 
 type AppProps = {};
 
@@ -11,6 +12,7 @@ const App = (props: AppProps) => {
   const location = useLocation();
   return (
     <Fragment>
+      <ToastContainer position="bottom-right" hideProgressBar theme="colored" />
       {location.pathname === "/" ? (
         <HomePage />
       ) : (
