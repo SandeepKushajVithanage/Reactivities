@@ -7,7 +7,6 @@ import { format } from "date-fns";
 type Props = { activity: Activity };
 
 const ActivityDetailedInfo = ({ activity }: Props) => {
-  console.log(typeof activity.date);
   return (
     <Segment.Group>
       <Segment attached="top">
