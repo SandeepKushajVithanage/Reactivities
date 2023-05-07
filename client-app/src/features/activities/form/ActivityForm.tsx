@@ -1,9 +1,9 @@
-import { ChangeEvent, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button, Header, Segment } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../app/stores/store";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { Activity } from "../../../app/models/activity";
+import { ActivityFormValues } from "../../../app/models/activity";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { v4 as uuid } from "uuid";
 import { Formik, Form } from "formik";
@@ -19,24 +19,13 @@ type ActivityFormProps = {};
 const ActivityForm = (props: ActivityFormProps) => {
   const navigate = useNavigate();
   const { activityStore } = useStore();
-  const {
-    createActivity,
-    updateActivity,
-    loading,
-    loadActivity,
-    loadingInitial,
-  } = activityStore;
+  const { createActivity, updateActivity, loadActivity, loadingInitial } =
+    activityStore;
 
   const { id } = useParams();
-  const [activity, setActivity] = useState<Activity>({
-    id: "",
-    title: "",
-    date: null,
-    description: "",
-    category: "",
-    city: "",
-    venue: "",
-  });
+  const [activity, setActivity] = useState<ActivityFormValues>(
+    new ActivityFormValues()
+  );
 
   const validationSchema = Yup.object({
     title: Yup.string().required("Please enter a title for your activity"),
@@ -53,7 +42,7 @@ const ActivityForm = (props: ActivityFormProps) => {
     ),
   });
 
-  const handleFormSubmit = (activity: Activity) => {
+  const handleFormSubmit = (activity: ActivityFormValues) => {
     if (!activity.id) {
       activity.id = uuid();
       createActivity(activity).then(() =>
@@ -66,17 +55,10 @@ const ActivityForm = (props: ActivityFormProps) => {
     }
   };
 
-  const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = event.target;
-    setActivity({ ...activity, [name]: value });
-  };
-
   useEffect(() => {
     if (id) {
       loadActivity(id).then((activity) => {
-        if (activity) setActivity(activity);
+        if (activity) setActivity(new ActivityFormValues(activity));
       });
     }
   }, [id, loadActivity]);
@@ -113,7 +95,7 @@ const ActivityForm = (props: ActivityFormProps) => {
             <MyTextInput name="venue" placeholder="Vanue" />
             <Button
               disabled={isSubmitting || !dirty || !isValid}
-              loading={loading}
+              loading={isSubmitting}
               floated="right"
               positive
               type="submit"
